@@ -3,7 +3,12 @@
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Lucide icons to reduce bundle size
+const MapPin = dynamic(() => import('lucide-react').then((mod) => mod.MapPin), { ssr: false });
+const Phone = dynamic(() => import('lucide-react').then((mod) => mod.Phone), { ssr: false });
+const Mail = dynamic(() => import('lucide-react').then((mod) => mod.Mail), { ssr: false });
 
 // TypeScript Interface for Form Data
 interface ContactForm {
@@ -14,6 +19,13 @@ interface ContactForm {
   message: string;
 }
 
+// Type for form status
+type FormStatus = 'idle' | 'success' | 'error';
+
+// Common input styles
+const inputStyles =
+  'w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 transition-colors duration-200';
+
 // Contact Page Component
 const ContactPage: FC = () => {
   // Form handling with react-hook-form
@@ -22,28 +34,36 @@ const ContactPage: FC = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<ContactForm>();
-  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  } = useForm<ContactForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    },
+  });
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle');
 
   // Form submission handler (mock for backend API)
-  const onSubmit: SubmitHandler<ContactForm> = async (data) => {
+  const onSubmit: SubmitHandler<ContactForm> = async () => {
     try {
       // Placeholder: Replace with actual API (e.g., /api/contact)
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API delay
       setFormStatus('success');
       reset();
       setTimeout(() => setFormStatus('idle'), 5000); // Reset status after 5s
-    } catch (error) {
+    } catch {
       setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 5000);
     }
   };
 
   return (
-    <main className="bg-gray-50">
+    <main className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
       <section
-        className="relative bg-[#1e3c72] text-white py-24 sm:py-32"
+        className="relative bg-blue-900 text-white py-24 sm:py-32"
         aria-labelledby="contact-hero-heading"
       >
         <div className="absolute inset-0">
@@ -51,10 +71,11 @@ const ContactPage: FC = () => {
             src="/images/footerimage.jpg"
             alt="Mshel Blocks & Machineries contact overview"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover opacity-40"
             priority
           />
-          <div className="absolute inset-0 bg-[#1e3c72]/70" /> {/* Overlay for contrast */}
+          <div className="absolute inset-0 bg-blue-900/70" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1
@@ -64,7 +85,7 @@ const ContactPage: FC = () => {
             Connect with Mshel Blocks & Machineries
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            Reach out to our team for expert guidance and support on your construction needs. We're here to help build your vision with precision and reliability.
+            Reach out to our team for expert guidance and support on your construction needs. We&apos;re here to help build your vision with precision and reliability.
           </p>
         </div>
       </section>
@@ -75,40 +96,55 @@ const ContactPage: FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white p-6 sm:p-8 rounded-xl shadow-md">
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1e3c72] mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-blue-900 mb-6">
                 Send Us a Message
               </h2>
               {/* Form Status Messages */}
               {formStatus === 'success' && (
-                <div className="p-4 bg-green-100 text-green-700 rounded-md mb-4">
-                  Message sent successfully! We'll respond shortly.
+                <div
+                  className="p-4 bg-green-100 text-green-700 rounded-md mb-4"
+                  role="alert"
+                >
+                  Message sent successfully! We&apos;ll respond shortly.
                 </div>
               )}
               {formStatus === 'error' && (
-                <div className="p-4 bg-red-100 text-red-700 rounded-md mb-4">
+                <div
+                  className="p-4 bg-red-100 text-red-700 rounded-md mb-4"
+                  role="alert"
+                >
                   An error occurred. Please try again.
                 </div>
               )}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* Name Field */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Name
                   </label>
                   <input
                     id="name"
                     type="text"
                     {...register('name', { required: 'Name is required' })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#e89e1c] focus:outline-none transition-colors duration-200"
+                    className={inputStyles}
                     aria-invalid={errors.name ? 'true' : 'false'}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
                   />
                   {errors.name && (
-                    <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+                    <p id="name-error" className="mt-1 text-sm text-red-600">
+                      {errors.name.message}
+                    </p>
                   )}
                 </div>
                 {/* Email Field */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Email
                   </label>
                   <input
@@ -121,66 +157,93 @@ const ContactPage: FC = () => {
                         message: 'Invalid email address',
                       },
                     })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#e89e1c] focus:outline-none transition-colors duration-200"
+                    className={inputStyles}
                     aria-invalid={errors.email ? 'true' : 'false'}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
                   />
                   {errors.email && (
-                    <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                    <p id="email-error" className="mt-1 text-sm text-red-600">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
                 {/* Phone Field */}
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Phone
                   </label>
                   <input
                     id="phone"
                     type="tel"
-                    {...register('phone', { required: 'Phone is required' })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#e89e1c] focus:outline-none transition-colors duration-200"
+                    {...register('phone', {
+                      required: 'Phone is required',
+                      pattern: {
+                        value: /^\+?[1-9]\d{1,14}$/,
+                        message: 'Invalid phone number',
+                      },
+                    })}
+                    className={inputStyles}
                     aria-invalid={errors.phone ? 'true' : 'false'}
+                    aria-describedby={errors.phone ? 'phone-error' : undefined}
                   />
                   {errors.phone && (
-                    <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+                    <p id="phone-error" className="mt-1 text-sm text-red-600">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
                 {/* Subject Field */}
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Subject
                   </label>
                   <input
                     id="subject"
                     type="text"
                     {...register('subject', { required: 'Subject is required' })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#e89e1c] focus:outline-none transition-colors duration-200"
+                    className={inputStyles}
                     aria-invalid={errors.subject ? 'true' : 'false'}
+                    aria-describedby={errors.subject ? 'subject-error' : undefined}
                   />
                   {errors.subject && (
-                    <p className="mt-1 text-sm text-red-600">{errors.subject.message}</p>
+                    <p id="subject-error" className="mt-1 text-sm text-red-600">
+                      {errors.subject.message}
+                    </p>
                   )}
                 </div>
                 {/* Message Field */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Message
                   </label>
                   <textarea
                     id="message"
                     {...register('message', { required: 'Message is required' })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#e89e1c] focus:outline-none transition-colors duration-200 resize-y"
+                    className={`${inputStyles} resize-y`}
                     rows={4}
                     aria-invalid={errors.message ? 'true' : 'false'}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
                   />
                   {errors.message && (
-                    <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
+                    <p id="message-error" className="mt-1 text-sm text-red-600">
+                      {errors.message.message}
+                    </p>
                   )}
                 </div>
                 {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-6 py-3 text-base font-medium bg-[#1e3c72] text-white rounded-md hover:bg-[#e89e1c] focus:outline-none focus:ring-2 focus:ring-[#e89e1c] focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50"
+                  className="w-full px-6 py-3 text-base font-medium bg-blue-900 text-white rounded-md hover:bg-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
@@ -191,36 +254,38 @@ const ContactPage: FC = () => {
             <div className="space-y-8">
               {/* Contact Details */}
               <div className="bg-white p-6 sm:p-8 rounded-xl shadow-md">
-                <h2 className="text-2xl sm:text-3xl font-bold text-[#1e3c72] mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-blue-900 mb-6">
                   Contact Information
                 </h2>
                 <ul className="space-y-6">
                   <li className="flex items-start gap-3">
-                    <MapPin className="h-6 w-6 text-[#e89e1c]" />
+                    <MapPin className="h-6 w-6 text-amber-500" aria-hidden="true" />
                     <div>
                       <p className="text-sm font-medium text-gray-700">Address</p>
-                      <p className="text-base text-gray-600">The Mshel Hub, No. 2 Julius Adelusi Street, Guzape, Abuja.</p>
+                      <p className="text-base text-gray-600">
+                        The Mshel Hub, No. 2 Julius Adelusi Street, Guzape, Abuja.
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Phone className="h-6 w-6 text-[#e89e1c]" />
+                    <Phone className="h-6 w-6 text-amber-500" aria-hidden="true" />
                     <div>
                       <p className="text-sm font-medium text-gray-700">Phone</p>
                       <a
                         href="tel:+2348104444229"
-                        className="text-base text-gray-600 hover:text-[#e89e1c] transition-colors duration-200"
+                        className="text-base text-gray-600 hover:text-amber-500 transition-colors duration-200"
                       >
                         +234-810-444-4229
                       </a>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Mail className="h-6 w-6 text-[#e89e1c]" />
+                    <Mail className="h-6 w-6 text-amber-500" aria-hidden="true" />
                     <div>
                       <p className="text-sm font-medium text-gray-700">Email</p>
                       <a
                         href="mailto:info@mshelgroup.com"
-                        className="text-base text-gray-600 hover:text-[#e89e1c] transition-colors duration-200"
+                        className="text-base text-gray-600 hover:text-amber-500 transition-colors duration-200"
                       >
                         info@mshelgroup.com
                       </a>
@@ -234,9 +299,11 @@ const ContactPage: FC = () => {
                   src="/images/map-placeholder.jpg"
                   alt="Map of Mshel Blocks & Machineries location"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEAPwCdpa//2Q=="
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                   <MapPin className="h-10 w-10 text-white" aria-hidden="true" />

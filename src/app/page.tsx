@@ -14,26 +14,20 @@ export default function Home() {
   return (
     <main className="rhbv-home bg-white">
 
-      {/* 1. Hero Section */}
       
       <HeroSection />
 
-      {/* 3 Featured Products Section */}
-
+      
       <FeaturedProducts />
 
-      {/* 2. Video Section */}
       
       <VideoSection />
 
 
-      {/* 4. Success Stories Section */}
-      
-      <SuccessStoriesSection />
+     <SuccessStoriesSection />
 
-      {/* 5. Partners Section */}
-     
-      <PartnersSection />
+      
+     <PartnersSection />
 
 
     </main>

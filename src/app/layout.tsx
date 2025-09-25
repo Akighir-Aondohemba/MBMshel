@@ -29,22 +29,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/*
-          We'll wrap the entire application in a flex column layout.
-          min-h-screen ensures the body takes at least the full viewport height.
-        */}
+        
         <div className="flex flex-col min-h-screen">
-          <Navbar /> {/* Your Navbar component will always be at the top */}
+          <Navbar /> 
 
-          {/*
-            This 'main' element will grow to take up all available space,
-            effectively pushing the Footer to the bottom of the viewport.
-          */}
           <main className="flex-grow">
-            {children} {/* This is where your page-specific content will be rendered */}
+            {children} 
           </main>
 
-          <Footer /> {/* Your Footer component will always be at the bottom */}
+          <Footer /> 
         </div>
       </body>
     </html>

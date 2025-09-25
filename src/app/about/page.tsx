@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { FC } from 'react';
 import { Award, Factory, Shield, Truck } from 'lucide-react';
 

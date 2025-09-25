@@ -1,16 +1,13 @@
 'use client';
-
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 
-// TypeScript Interface for Nav Links
 interface NavLink {
   label: string;
   href: string;
 }
 
-// Navigation Data
 const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about' },
@@ -24,16 +21,12 @@ const Navbar: React.FC = () => {
   const [isScrolled, setScrolled] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // Toggle mobile menu
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
 
-  // Handle scroll effect
+  // Scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 100);
 
-    // Throttle scroll event
     let timeout: NodeJS.Timeout;
     const throttledScroll = () => {
       clearTimeout(timeout);
@@ -43,34 +36,6 @@ const Navbar: React.FC = () => {
     window.addEventListener('scroll', throttledScroll);
     return () => window.removeEventListener('scroll', throttledScroll);
   }, []);
-
-  // Trap focus in mobile menu
-  useEffect(() => {
-    if (isMobileMenuOpen && mobileMenuRef.current) {
-      const focusableElements = mobileMenuRef.current.querySelectorAll(
-        'a[href], button, [tabindex]:not([tabindex="-1"])'
-      );
-      const firstElement = focusableElements[0] as HTMLElement;
-      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
-      const trapFocus = (e: KeyboardEvent) => {
-        if (e.key === 'Tab') {
-          if (e.shiftKey && document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement.focus();
-          } else if (!e.shiftKey && document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement.focus();
-          }
-        }
-      };
-
-      document.addEventListener('keydown', trapFocus);
-      firstElement.focus();
-
-      return () => document.removeEventListener('keydown', trapFocus);
-    }
-  }, [isMobileMenuOpen]);
 
   return (
     <nav
@@ -87,7 +52,7 @@ const Navbar: React.FC = () => {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-xl font-bold tracking-tight"
+              className="text-xl font-bold tracking-tight hover:text-[#e89e1c] transition-colors"
               aria-label="Mshel Blocks & Machineries Home"
             >
               Mshel Blocks & Machineries
@@ -100,7 +65,7 @@ const Navbar: React.FC = () => {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium hover:text-[#e89e1c] focus:outline-none "
+                  className="text-sm font-medium hover:text-[#e89e1c] transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -108,7 +73,7 @@ const Navbar: React.FC = () => {
             ))}
           </ul>
 
-          {/* Mobile Menu Button */}
+          {/* Hamburger Button (Mobile) */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -118,9 +83,9 @@ const Navbar: React.FC = () => {
               className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e89e1c] focus:ring-offset-2"
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-7 w-7" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-7 w-7" />
               )}
             </button>
           </div>
@@ -128,30 +93,41 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div
-        ref={mobileMenuRef}
-        id="mobile-menu"
-        className={`md:hidden fixed inset-0 bg-[#1e3c72]/95 backdrop-blur-md transition-opacity duration-300 ${
-          isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        } z-40`}
-      >
-        <div className="pt-20 px-6 space-y-4">
-          <ul className="space-y-4">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="block text-lg font-medium text-white hover:text-[#e89e1c] focus:outline-none focus:ring-2 focus:ring-[#e89e1c] focus:ring-offset-2"
-                  onClick={toggleMobileMenu}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </nav>
+<div
+  ref={mobileMenuRef}
+  id="mobile-menu"
+  className={`md:hidden fixed inset-0 bg-[#1e3c72]/95 backdrop-blur-md transform transition-transform duration-300 ${
+    isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+  } z-40`}
+>
+  {/* Close Button Inside Mobile Menu */}
+  <div className="flex justify-end pt-6 px-6">
+    <button
+      onClick={toggleMobileMenu}
+      aria-label="Close menu"
+      className="p-2 rounded-md text-white hover:text-[#e89e1c] focus:outline-none focus:ring-2 focus:ring-[#e89e1c]"
+    >
+      <X className="h-7 w-7" />
+    </button>
+  </div>
+
+  <div className="pt-10 px-6 space-y-6">
+    <ul className="space-y-4">
+      {navLinks.map((link) => (
+        <li key={link.label}>
+          <Link
+            href={link.href}
+            className="block text-lg font-medium text-white hover:text-[#e89e1c]"
+            onClick={toggleMobileMenu} // closes menu when clicking link
+          >
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+ </nav>
   );
 };
 

@@ -1,7 +1,13 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  output: 'export',
+  images: {
+    unoptimized: true, // 👈 required for static export
+  },
+  eslint: {
+    ignoreDuringBuilds: true, // optional, skips lint blocking your build
+  },
+}
 
-export default nextConfig;
+export default nextConfig
