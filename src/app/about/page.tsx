@@ -31,17 +31,17 @@ interface Certification {
 const teamMembers: TeamMember[] = [
   {
     id: '1',
-    name: 'John Adebayo',
-    title: 'Founder & CEO',
-    bio: 'With over 20 years in the construction industry, John leads Mshel with a focus on innovation, quality, and sustainable growth.',
-    imageSrc: '/images/team/john-adebayo.jpg',
+    name: 'Dr. Arc, Barka Umar Mshelia',
+    title: 'GMD',
+    bio: 'With over 7 years in the construction industry, Dr.Barka leads Mshel with a focus on innovation, quality, and sustainable growth.',
+    imageSrc: '/images/gmd.jpg',
   },
   {
     id: '2',
-    name: 'Sarah Okonkwo',
-    title: 'Head of Operations',
-    bio: 'Sarah oversees seamless production and logistics, ensuring efficiency and reliability in every delivery.',
-    imageSrc: '/images/team/sarah-okonkwo.jpg',
+    name: 'Jighjigh Kuku',
+    title: 'General Manager',
+    bio: 'Jighjigh oversees seamless production and logistics, ensuring efficiency and reliability in every delivery.',
+    imageSrc: '/images/Blocks-mgn.jpg',
   },
   {
     id: '3',
@@ -110,7 +110,7 @@ const AboutPage: FC = () => {
       >
         <div className="absolute inset-0">
           <Image
-            src="/images/cement 1.jpg" // Professional construction/machinery background
+            src="/images/footerimage.jpg" // Professional construction/machinery background
             alt="Mshel Blocks & Machineries facility overview"
             fill
             className="object-cover opacity-40"
@@ -140,12 +140,12 @@ const AboutPage: FC = () => {
                 Our Journey
               </h2>
               <p className="mt-6 text-base sm:text-lg text-gray-600 leading-relaxed">
-                Established in 2005 as a modest workshop in Lagos, Mshel Blocks & Machineries has evolved into a cornerstone of Nigeria's construction sector. Driven by a commitment to quality and innovation, we've expanded from crafting essential bricks to engineering advanced machineries. Over two decades, we've supported over 500 projects in residential, commercial, and educational domains, fostering sustainable development and community growth across the nation.
+                A proud subsidiary of the Mshel Homes, Mshel Blocks and Machinery Limited is positioned at the heart of construction excellence in Nigeria. Established to provide superior building materials and advanced equipment solutions, we ensure durability, precision, and efficiency on every site. Through its two divisions, Block Production and Machinery Leasing,  we deliver consistent value by supplying premium-grade blocks and reliable, high-performance equipment. From residential to large-scale commercial projects, Mshel Blocks and Machinery Limited powers developments with innovation, reliability, and quality, reinforcing the Mshel Homes legacy of credibility while setting new benchmarks in construction standards nationwide.
               </p>
             </div>
             <div className="relative h-64 sm:h-80 lg:h-96 order-1 lg:order-2">
               <Image
-                src="/images/about-history.jpg" // Timeline or facility evolution image
+                src="/images/on-scaffolding-bricklayer.jpg" // Timeline or facility evolution image
                 alt="Evolution of Mshel Blocks & Machineries facility"
                 fill
                 className="object-cover rounded-xl shadow-lg"
@@ -168,13 +168,13 @@ const AboutPage: FC = () => {
             <article className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
               <h3 className="text-xl font-semibold text-[#1e3c72] mb-4">Mission</h3>
               <p className="text-base text-gray-600 leading-relaxed">
-                To provide premium blocks and machineries that enhance construction efficiency, durability, and sustainability for projects nationwide.
+                Delivering top-quality blocks and reliable construction machinery that drive efficiency, durability, and value for our clients.
               </p>
             </article>
             <article className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
               <h3 className="text-xl font-semibold text-[#1e3c72] mb-4">Vision</h3>
               <p className="text-base text-gray-600 leading-relaxed">
-                To lead Africa's construction materials industry with innovative, eco-conscious solutions that build a resilient future.
+                To become the highest producer of quality block and construction machinery solutions in Nigeria.
               </p>
             </article>
             <article className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 md:col-span-3 lg:col-span-1">
@@ -203,7 +203,7 @@ const AboutPage: FC = () => {
               Meet Our Leadership Team
             </h2>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Our experienced leaders are dedicated to driving excellence and innovation in every aspect of our operations.
+              Our experienced leaders are dedicated to driving excellence and innovation in every aspect of our operations at Mshel Blocks & Machinery.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -242,7 +242,7 @@ const AboutPage: FC = () => {
               What Sets Us Apart
             </h2>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Our dedication to superior quality, innovative practices, and sustainable solutions distinguishes us in the industry.
+              Our commitment to uncompromising quality, advanced technology, and reliable delivery defines every aspect of Mshel Blocks & Machinery
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -257,20 +257,20 @@ const AboutPage: FC = () => {
               <Shield className="h-8 w-8 text-[#e89e1c] mb-4" />
               <h3 className="text-xl font-semibold text-[#1e3c72] mb-2">Uncompromising Quality</h3>
               <p className="text-base text-gray-600 leading-relaxed">
-                Stringent testing and standards ensure our products deliver exceptional performance and longevity.
+                Every block and machine from Mshel Blocks & Machineries is crafted to deliver reliability. Precision in production, attention to detail, and adherence to global benchmarks ensure materials and equipment that strengthen structures, inspire confidence, and withstand the demands of time and environment
               </p>
             </article>
             <article className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
               <Truck className="h-8 w-8 text-[#e89e1c] mb-4" />
               <h3 className="text-xl font-semibold text-[#1e3c72] mb-2">Sustainability</h3>
               <p className="text-base text-gray-600 leading-relaxed">
-                Eco-friendly processes minimize environmental impact while promoting responsible construction.
+                Through our innovative production methods and resource-conscious practices, sustainability is integrated into every stage of our operations. The focus remains on reducing environmental impact, advancing greener construction solutions, and developing materials that strike a balance between durability and responsibility for future generations.
               </p>
             </article>
           </div>
           <div className="mt-12 text-center">
             <p className="text-2xl font-bold text-[#1e3c72]">
-              20+ Years of Excellence | 500+ Projects Delivered | 95% Client Satisfaction
+              4+ Years of Excellence | 500+ Projects Delivered | 95% Client Satisfaction
             </p>
           </div>
         </div>
@@ -284,7 +284,7 @@ const AboutPage: FC = () => {
               Certifications & Affiliations
             </h2>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Our adherence to rigorous standards underscores our commitment to quality and reliability.
+              Backed by recognised certifications that uphold excellence and credibility across every project.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

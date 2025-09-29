@@ -78,7 +78,7 @@ const ServicesPage: FC = () => {
       >
         <div className="absolute inset-0">
           <Image
-            src="/images/cement 2.jpg" // Relevant machinery/block production background
+            src="/images/footerimage.jpg" // Relevant machinery/block production background
             alt="Mshel Blocks & Machineries service operations"
             fill
             className="object-cover opacity-40"
@@ -94,7 +94,7 @@ const ServicesPage: FC = () => {
             Delivering Comprehensive Services with Precision and Reliability
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            At Mshel Blocks & Machineries, our services are engineered to support your construction goals, combining expertise, innovation, and unwavering quality for optimal results.
+            We provide advanced block production and dependable machinery leasing, ensuring every project is supported with accuracy, efficiency, and lasting strength
           </p>
         </div>
       </section>
@@ -108,12 +108,12 @@ const ServicesPage: FC = () => {
                 Our Service Excellence
               </h2>
               <p className="mt-6 text-base sm:text-lg text-gray-600 leading-relaxed">
-                With a foundation built on decades of industry leadership, our services encompass everything from precision manufacturing to expert maintenance. We focus on delivering solutions that enhance efficiency, reduce costs, and promote sustainability, ensuring your projects achieve lasting success across Nigeria.
+               Every service reflects a dedication to precision, reliability, and uncompromising quality. Durable blocks and well-maintained machinery are delivered to ensure construction projects achieve lasting value, efficiency, and trusted performance at every stage of construction.
               </p>
             </div>
             <div className="relative h-64 sm:h-80 lg:h-96 order-1 lg:order-2">
               <Image
-                src="/images/services-intro.jpg" // Image of service in action
+                src="/images/Cats.jpg" // Image of service in action
                 alt="Mshel services in operation"
                 fill
                 className="object-cover rounded-xl shadow-lg"
@@ -167,7 +167,7 @@ const ServicesPage: FC = () => {
             <div className="hidden md:block flex-1 h-0.5 bg-[#e89e1c] self-center"></div>
             <div className="flex-1 text-center">
               <div className="w-12 h-12 mx-auto rounded-full bg-[#e89e1c] text-white flex items-center justify-center text-xl font-bold">2</div>
-              <h3 className="mt-4 text-xl font-semibold text-[#1e3c72]">Design & Production</h3>
+              <h3 className="mt-4 text-xl font-semibold text-[#1e3c72]">Block Manufacturing</h3>
               <p className="mt-2 text-gray-600">Crafting high-quality products with advanced technology.</p>
             </div>
             <div className="hidden md:block flex-1 h-0.5 bg-[#e89e1c] self-center"></div>
